@@ -13,14 +13,24 @@ class ApplicationController < ActionController::Base
   #  I18n.locale = params[:locale] || I18n.default_locale
   #end
 
+
+  #include HttpAcceptLanguage::AutoLocale  #<--- Failed this way
   def set_locale
-    I18n.locale = extract_locale_from_accept_language_header
+    # Trivial usage
+    #I18n.locale = extract_locale_from_accept_language_header
+
+    # Use gem:http_accept_language instead
+    get_locale = params[:locale]
+    if get_locale.blank?
+      get_locale = http_accept_language.compatible_language_from(I18n.available_locales)
+    end
+    I18n.locale = get_locale
   end
 
-  private
-  def extract_locale_from_accept_language_header
-    aa = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
-    #render plain: aa
-  end
+  #private
+  #def extract_locale_from_accept_language_header
+  #  # This is a trivial usage, in prod, use gem http_accept_language insead
+  #  request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+  #end
 
 end
