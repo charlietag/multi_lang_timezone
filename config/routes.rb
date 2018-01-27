@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  resources :articles
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "home#index"
+  # Comment scope, instead using router-filter
+  filter :pagination,:locale
+  #scope "/:locale" , locale: /en|zh-TW/ do
+    resources :articles
+    devise_for :users
+    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    root to: "home#index"
+    #get '/:locale' => 'articles#index'
+  #end
+  get '/test' , to: 'test#index'
 end
