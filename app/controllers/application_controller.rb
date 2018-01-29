@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     if get_locale.blank?
       get_locale = http_accept_language.compatible_language_from(I18n.available_locales)
     end
-    I18n.locale = get_locale
+    I18n.locale = get_locale || I18n.default_locale
   end
 
   #private
