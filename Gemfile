@@ -60,5 +60,6 @@ gem 'devise-i18n'
 # i18n
 gem 'rails-i18n'
 gem 'http_accept_language'
+#gem 'i18n-tasks', '~> 0.9.20' # Only used in command, not rails server, so no need to be in Gemfile
 
 gem 'routing-filter'
