@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     #I18n.locale = extract_locale_from_accept_language_header
 
     # Use gem:http_accept_language instead
-    get_locale = params[:locale] if I18n.available_locales.include?(params[:locale])
+    get_locale = params[:locale] if I18n.available_locales.include?(params[:locale].to_sym)
     if get_locale.blank?
       get_locale = http_accept_language.compatible_language_from(I18n.available_locales)
     end
